@@ -13,14 +13,14 @@ class Threadtester (threading.Thread):
     def run(self):
         while True:
             time.sleep(0.01)
-            print(self.prevXCor)
-            print(self.ball.xcor())
+            #print(self.prevXCor)
+            #print(self.ball.xcor())
             if self.prevXCor != self.ball.xcor() or self.prevYCor != self.ball.ycor():
                 Threadtester.moving = True
                 self.prevXCor = self.ball.xcor()
                 self.prevYCor = self.ball.ycor()
-            if self.prevXCor == self.ball.xcor():
-                Threadtester.moving = False
+            #if self.prevXCor == self.ball.xcor():
+                #Threadtester.moving = False
                 
 
 

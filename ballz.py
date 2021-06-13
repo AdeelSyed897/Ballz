@@ -36,7 +36,7 @@ ball = Ball()
 ball.ball.speed(0)
 
 def shoot():
-  ball.ball.forward(10)
+  ball.ball.forward(15)
   if ball.ball.xcor() > 240:
     changeBallDirection(ball.ball)
   if ball.ball.xcor() < -240:
@@ -83,6 +83,8 @@ def modifyglobalvariables(rawx,rawy):
 thread = Threadtester(ball.ball)
 thread.start()
 
+
+
 ball.ball.left(30)
 ##while True:
 ##  ball.ball.forward(10)
@@ -93,16 +95,24 @@ ball.ball.left(30)
 ##  if ball.ball.ycor() > 340:
 ##    print(ball.ball.heading())
 ##    changeBallDirection(ball.ball, "topBound")
-##  #if ball.ball.ycor() < -350:
+##  #if ball.ball.ycor() == -336:
+
+
+
+
 
 getcoordinates()
+i = 0
 while True:
+    if ball.ball.ycor() == -336 and Threadtester.moving:
+      Square.moveDown()
     print('------------------------------------------')
   
     print(Threadtester.moving)
+    print('i', i)
     
     if not (yclick == ball.ball.ycor() and xclick == ball.ball.xcor()):
-      if not Threadtester.moving:
+      if not Threadtester.moving or i < 10:
         print(xclick, yclick)
 
         opp = abs(yclick - ball.ball.ycor())
@@ -111,14 +121,18 @@ while True:
         if xclick < 0:
           angle = 90+(90-angle)
         ball.ball.setheading(angle)
-        print(angle)
+        print('angle', angle)
         print(xclick, yclick)
+        Threadtester.var = True
     if xclick != 1 and yclick != 1:
       result = shoot()
       if result:
         pass
       else:
         break
+    i+=1
+
+
     
   
     

@@ -1,13 +1,12 @@
 import turtle
 import random
 class Square:
-
+    
     colors = ['red','green','blue','orange','purple']
     coords = [ [(-200,300), None], [(-100, 300,), None], [(0, 300), None], [(100,300), None], [(200,300), None]]
     tiles = []
     def __init__(self):
         tile = turtle.Turtle()
-        
         tile.penup()
         tile.speed(0)
         tile.color('white',Square.colors[random.randint(0,4)])
@@ -25,7 +24,8 @@ class Square:
                 y[1] = 1
                 condition = False
 
-    def moveDown(self):
+    @staticmethod
+    def moveDown():
         if tiles.ycor() != -300:
             for tile in Square.tiles:
                 tile.sety(tile.ycor()-100)
