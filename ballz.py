@@ -42,10 +42,14 @@ def shoot():
   if ball.ball.xcor() < -240:
     changeBallDirection(ball.ball)
   if ball.ball.ycor() > 340:
-    print(ball.ball.heading())
     changeBallDirection(ball.ball, "topBound")
-  if ball.ball.ycor() < -350:
+  if ball.ball.ycor() < -330:
     return False
+  for tile in Square.tiles:
+    for side in tile[1]:
+      if side[0] <= ball.ball.xcor() <= side[1] and side[2] <= ball.ball.ycor() <= side[3]:
+        changeBallDirection(ball.ball)
+        print('it half worked')
   return True
 
 
