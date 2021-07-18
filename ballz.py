@@ -1,11 +1,11 @@
 import turtle
-
+from CollisionThread import CollisionThread
 import random
 from Square import Square
 from Threadtester import Threadtester
 from Ball import Ball
 import math
-
+import time
 canvas = turtle.getcanvas()
 
 
@@ -15,6 +15,14 @@ screen = turtle.Screen()
 screen.setup(550,750)
 screen.bgcolor('black')
 
+
+#score making
+score = turtle.Turtle()
+score.penup()
+score.backward(50)
+score.color('blue')
+score.ht()
+scorer = 0
 
 #board making
 board = turtle.Turtle()
@@ -33,9 +41,10 @@ board.ht()
 
 ball = Ball()
 
-ball.ball.speed(0)
+ball.ball.speed(1)
 
 def shoot():
+  time.sleep(5)
   ball.ball.forward(15)
   if ball.ball.xcor() > 240:
     changeBallDirection(ball.ball)
@@ -45,11 +54,7 @@ def shoot():
     changeBallDirection(ball.ball, "topBound")
   if ball.ball.ycor() < -330:
     return False
-  for tile in Square.tiles:
-    for side in tile[1]:
-      if side[0] <= ball.ball.xcor() <= side[1] and side[2] <= ball.ball.ycor() <= side[3]:
-        changeBallDirection(ball.ball)
-        print('it half worked')
+  
   return True
 
 
@@ -87,7 +92,8 @@ def modifyglobalvariables(rawx,rawy):
 thread = Threadtester(ball.ball)
 thread.start()
 
-
+Cthread = CollisionThread(ball.ball)
+Cthread.start()
 
 ball.ball.left(30)
 ##while True:
@@ -110,14 +116,9 @@ i = 0
 while True:
     if ball.ball.ycor() == -336 and Threadtester.moving:
       Square.moveDown()
-    print('------------------------------------------')
-  
-    print(Threadtester.moving)
-    print('i', i)
-    
+
     if not (yclick == ball.ball.ycor() and xclick == ball.ball.xcor()):
       if not Threadtester.moving or i < 10:
-        print(xclick, yclick)
 
         opp = abs(yclick - ball.ball.ycor())
         adj = abs(xclick - ball.ball.xcor())
@@ -125,8 +126,7 @@ while True:
         if xclick < 0:
           angle = 90+(90-angle)
         ball.ball.setheading(angle)
-        print('angle', angle)
-        print(xclick, yclick)
+
         Threadtester.var = True
     if xclick != 1 and yclick != 1:
       result = shoot()
@@ -135,6 +135,10 @@ while True:
       else:
         break
     i+=1
+    if ball.ball.ycor() < -325:
+      scorer += 10
+      score.clear()
+      score.write(scorer, font=("Arial", 80, "normal"))
 
 
     

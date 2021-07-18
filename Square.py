@@ -19,8 +19,8 @@ class Square:
         while condition:
             x = random.randint(0,4)
             y = Square.coords[x]
-            print('y[0][0]', y[0][0])
-            print('y[0][1]', y[0][1])
+            #print('y[0][0]', y[0][0])
+            #print('y[0][1]', y[0][1])
             Square.tiles.append([tile, Square.calcEdges(y[0][0], y[0][1]) ])
             if y[1] is None:
                 tile.clear()
@@ -28,7 +28,7 @@ class Square:
                 tile.write('50',align = 'center',font=("Arial", 30))
                 y[1] = 1
                 condition = False
-        print(Square.tiles)
+       # print(Square.tiles)
 
     @staticmethod
     def moveDown():
